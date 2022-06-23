@@ -4,12 +4,12 @@ USER root
 # RUN useradd --create-home redash
 
 ENV REDASH_BASE_PATH=/app
-ENV DRIVER_VERSION=1.4.2.1003
+ENV DRIVER_VERSION=1.5.4.1002
 ENV REDASH_ADDITIONAL_QUERY_RUNNERS='redash.query_runner.python,redash.query_runner.dremio_odbc'
 
 RUN apt-get update  &&\
 apt-get install -y alien unixodbc unixodbc-dev python3-pip python-pip vim &&\
-wget "https://download.dremio.com/odbc-driver/${DRIVER_VERSION}/dremio-odbc-${DRIVER_VERSION}-1.x86_64.rpm" -O /dremio-odbc-${DRIVER_VERSION}-1.x86_64.rpm &&\
+wget --no-check-certificate "https://fileserv.do.co.th/static/files/dremio/2022/dremio-odbc-${DRIVER_VERSION}-1.x86_64.rpm" -O /dremio-odbc-${DRIVER_VERSION}-1.x86_64.rpm &&\
 alien -i --scripts /dremio-odbc-${DRIVER_VERSION}-1.x86_64.rpm &&\
 rm -f /dremio-odbc-${DRIVER_VERSION}-1.x86_64.rpm &&\
 pip3 install pyodbc pandas &&\
